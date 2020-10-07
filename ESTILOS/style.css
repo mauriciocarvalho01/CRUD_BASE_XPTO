@@ -1,0 +1,13 @@
+#navi, #footer1{
+                color: #ddd !important;
+                background-color: #bbdefb  !important;
+}
+
+.row .card:hover{
+    box-shadow: 3px 37px 75px -20px rgba(128,128,128,0.75);
+}
+
+.row .card-content{
+    box-shadow: 3px 37px 75px -20px rgba(30,144,255,0.75) !important;
+}
+
