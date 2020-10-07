@@ -57,7 +57,13 @@ while($gerente = mysqli_fetch_array($gerentes)):
       <p>Código do Departamento: <?php echo $id ?><br>
          Departamento: <?php echo $gerente['nome_dpto'] ?>
       </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+      <div class="secondary-content">
+  <ul>
+     <a href="#!" class="btn-floating"><i class="material-icons">grade</i></a>
+      <a href="#!" class="btn-floating"><i class="material-icons">edit</i></a>
+      <a href="#!" class="btn-floating red"><i class="material-icons">delete</i></a>
+  </ul>
+</div>
     </li>
   </ul>
   </div>

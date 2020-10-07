@@ -1,6 +1,6 @@
 <nav id="navi"> <!-- navbar content here  --> </nav>
 
-  <ul id="slide-out" class="sidenav">
+  <ul id="slide-out" class="sidenav fixed">
     <li><div class="user-view">
       <div class="background">
         <img src="../INCLUDES/images/xpto.png">

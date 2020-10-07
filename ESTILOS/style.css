@@ -11,3 +11,7 @@
     box-shadow: 3px 37px 75px -20px rgba(30,144,255,0.75) !important;
 }
 
+.fixed-action-btn{
+    display:block !important;
+}
+

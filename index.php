@@ -31,7 +31,7 @@ include_once 'INCLUDES/menu.php';
                 </div>
                 <div class="card-action">
                 <a href="Views/gerentes.php?id=<?php echo $dados['codigo_dpto'];?>">Gerente</a>
-                <a href="Views/gerentes.php?id=<?php echo $dados['codigo_dpto'];?>">Gerente</a>
+                <a href="Views/funcionarios.php?id=<?php echo $dados['codigo_dpto'];?>">Funcionários</a>
                 </div>
             </div>
             </div>
