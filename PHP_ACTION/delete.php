@@ -8,18 +8,22 @@ require_once 'db_connect.php';
 
 if(isset($_POST['btn-deletar'])):
 
-    $id = mysqli_escape_string($connect, $_POST['id']);
+    $func = mysqli_escape_string($connect, $_POST['func']);
+	$id = mysqli_escape_string($connect, $_POST['id']);
 
-	$sql = "DELETE FROM clintes WHERE id = '$id'";
+	$delete_aloc = "DELETE FROM aloc WHERE numero_func = '$func'";
 
 
-if(mysqli_query($connect, $sql)):
+if(mysqli_query($connect, $delete_aloc)):
 
-    $_SESSION['mensagem'] = 'Excluido com sucesso!';
-		header('Location: ../index.php');
+$delete_func = "DELETE FROM func WHERE numero_func = '$func'";
+
+if(mysqli_query($connect, $delete_aloc)):
+   $_SESSION['excluido'] = 'Excluido com sucesso!';
+	header("Location: ../Views/funcionarios.php?id=$id");
 	else:
-    $_SESSION['mensagem'] = 'Erro ao excluir!';
-		header('Location: ../index.php');
-        
+	$_SESSION['excluido'] = 'Erro ao excluir!';
+	header("Location: ../Views/funcionarios.php?id=$id");
+	endif;    
 	endif;
 endif;

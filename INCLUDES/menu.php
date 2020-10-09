@@ -10,7 +10,7 @@
       <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
     </div></li>
     <li><a href="http://localhost/XPTO_ERP/"><i class="material-icons">assignment</i>Departamentos</a></li>
-    <li><a href="pagamentos.php">Pagamentos</a></li>
+    <li><a href="http://localhost/XPTO_ERP/Views/buscafuncionario.php">Funcionários</a></li>
     <li><div class="divider"></div></li>
     <li><a class="cargos.php">Cargos</a></li>
     <li><a class="waves-effect" href="funcionarios.php">Funcionários</a></li>

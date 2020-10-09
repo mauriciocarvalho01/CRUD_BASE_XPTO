@@ -18,54 +18,92 @@ include_once '../INCLUDES/menu.php';
 <?php
 
 
-if (isset($_GET['id'])):
-$id = mysqli_escape_string($connect, $_GET['id']);
+
 
 
 // funcionários Gerenciados por Gerente setor ID
-$buscafuncionarios = "SELECT numero_func, codigo_carg, nome_func,numero_gerente,nome_dpto
-                        FROM carg INNER JOIN func USING(codigo_carg) 
-                        INNER JOIN aloc USING(numero_func)
-                        INNER JOIN dpto USING(codigo_dpto)
-                        WHERE codigo_dpto = '$id'";
+$buscafuncionarios = "SELECT * FROM func";
 
 $funcionarios = mysqli_query($connect, $buscafuncionarios);
 
-endif;
 
 
 if(mysqli_num_rows($funcionarios) > 0):
 
 
 ?>
-<h4 class="light center">Funcionários do departamento <?php echo $id?></h4>
+<h4 class="light center">Funcionários</h4>
 <?php
-     while($funcionario = mysqli_fetch_array($funcionarios)):
 ?>
 <div class="row">
     <div class="col s12 m6 push-m3">
-  <ul class="collection">
-    <li class="collection-item avatar">
-     <i class="material-icons circle blue">person</i>
-     <span class="title">Nome: <?php echo $funcionario['nome_func'] ?></span>
-     <br>
-     <span class="title">Número do funcionário: <?php echo $funcionario['numero_func'] ?></span>
-      <span class="title">Código do Cargo: <?php echo $funcionario['codigo_carg'] ?></span>
-      <p>Código do Departamento: <?php echo $id ?><br>
-         Departamento: <?php echo $funcionario['nome_dpto'] ?>
-      </p>
-      <div class="secondary-content">
-  <ul>
-      <a href="#!" class="btn-floating"><i class="material-icons">edit</i></a>
-      <a href="#!" class="btn-floating red"><i class="material-icons">delete</i></a>
-  </ul>
+<table class="centered responsive-table striped">
+        <thead>
+          <tr>
+              <th>Número</th>
+              <th>Nome</th>
+              <th>CPF</th>
+              <th>Data da admissão</th>
+               <th>Data da Saída</th>
+              <th>Situação</th>
+              <th>Cargo</th>
+              <th>Salário base</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+          while($funcionario = mysqli_fetch_array($funcionarios)):
+        ?>  
+          <tr>
+            <td><?php echo $funcionario['numero_func'] ?></td>
+            <td><?php echo $funcionario['nome_func'] ?></td>
+            <td><?php echo $funcionario['cpf_func'] ?></td>
+            <td><?php echo $funcionario['data_admissao_func'] ?></td>
+            <td><?php echo $funcionario['data_saida_func'] ?></td>
+            <td><?php echo $funcionario['situacao_func'] ?></td>
+            <td><?php echo $funcionario['codigo_carg'] ?></td>
+            <td><?php echo $funcionario['salario_base_func'] ?></td>
+            <td><a href="editar.php?numero_func=<?php echo $funcionario['numero_func'];?>" class="btn-floating orange"><i class="material-icons">edit</i></a></td>
+            <td><a href="#modal<?php echo $funcionario['numero_func'];?>"  class="btn-floating red modal-trigger"><i class="material-icons">delete</i></a></td>
+            <?php 
+
+              $d = $funcionario['numero_func'];
+              $buscaDpto_funcionarios = "SELECT * FROM aloc WHERE numero_func = '$d'";
+
+              $dpto = mysqli_query($connect, $buscaDpto_funcionarios);
+              
+              
+              if($codigo_dpto = mysqli_fetch_array($dpto)):
+
+
+            ?>
+          <!-- Modal Structure -->
+          <div id="modal<?php echo $funcionario['numero_func'];?>" class="modal">
+              <div class="modal-content">
+              <h4>Opa!!</h4>
+              <p>Tem certeza que deseja excluir  o funcionário <?php echo $funcionario['nome_func'];?>?</p>
+              </div>
+              <div class="modal-footer">
+              <form action="../PHP_ACTION/delete.php?" method="POST">
+                  <input type="hidden" name="func" value="<?php echo $funcionario['numero_func'] ?>">
+                  <input type="hidden" name="id" value="<?php echo $d;?>">
+                  <button type="submit" name="btn-deletar" class="btn red">Excluir<button>
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
+              </form>
+              </div>
+          </div>
+          </tr>
+        <?php
+        endif;
+            endwhile;
+        ?>
+        </tbody>
+      </table>
+    </div>
 </div>
-    </li>
-  </ul>
-  </div>
-  </div>
+
+
 <?php
-endwhile;
 else:
 echo "<h4 class='light center'>Departamento sem funcionários</h4>";
 endif;

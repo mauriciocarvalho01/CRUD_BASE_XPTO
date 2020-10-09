@@ -35,7 +35,7 @@ $buscafuncionarios = "SELECT numero_func, codigo_carg, nome_func,numero_gerente
                         INNER JOIN dpto USING(codigo_dpto) 
                         WHERE numero_gerente = (SELECT numero_func 
                         FROM func INNER JOIN dpto ON numero_gerente = numero_func 
-                        WHERE codigo_dpto = '$id')";
+                        WHERE codigo_dpto = '$id') GROUP BY numero_func";
 
 $funcionarios = mysqli_query($connect, $buscafuncionarios);
 
@@ -45,7 +45,7 @@ endif;
 if(mysqli_num_rows($gerentes) > 0):
 
 while($gerente = mysqli_fetch_array($gerentes)):
-?>
+?> 
 <div class="row">
     <div class="col s12 m6 push-m3 z-depth-2">
   <ul class="collection">
