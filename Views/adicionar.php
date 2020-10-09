@@ -23,10 +23,10 @@ endif;
 <div class="row">
     <form class="col s6 m6 push-m3" action="../PHP_ACTION/create.php" method="POST">
       <div class="row">
-         <div class="input-field col s6 hidden">
-          <input placeholder="Placeholder" name="dpto" id="dpto" type="text" class="validate" value="<?php echo $dpto;?>">
+       <!--  <div class="input-field col s6 hidden">
+          <input placeholder="Placeholder" name="dpto" id="dpto" type="text" class="validate">
           <label for="dpto">Departamento</label>
-        </div>
+        </div> -->
         <div class="input-field col s6">
           <input placeholder="Placeholder" name="nome" id="nome" type="text" class="validate">
           <label for="nome">Nome</label>
@@ -54,7 +54,7 @@ endif;
       </div>
       <div class="row">
         <button name="btn-cadastrar" type="submit" class="btn green">Cadastrar</button>
-        <a href="funcionarios.php?id=<?php echo $dpto;?>"><span class="btn blue">Listar funcionários</span></a>
+        <a href="buscafuncionario.php"><span class="btn blue">Listar funcionários</span></a>
       </div>
     </form>
   </div>

@@ -24,7 +24,13 @@ $departamento = "SELECT * FROM aloc
 INNER JOIN dpto USING(codigo_dpto)
 WHERE numero_func = '$id'";
 $dpto = mysqli_query($connect, $departamento);
-$codigo_dpto = mysqli_fetch_array($dpto);
+$nome_dpto = mysqli_fetch_array($dpto);
+
+$codigo_departamento = "SELECT * FROM aloc 
+INNER JOIN dpto USING(codigo_dpto)
+WHERE numero_func = '$id'";
+$cod_dpto = mysqli_query($connect, $codigo_departamento);
+$codigo_dpto = mysqli_fetch_array($cod_dpto);
 
 
 endif;
@@ -59,28 +65,36 @@ endif;
           <input name="situacao_func" id="situacao_func" type="text" class="validate" value="<?php echo $funcioanario['situacao_func']?>">
           <label for="situacao_func">Situação do funcionário</label>
         </div>
-         <div class="input-field col s6">
-          <input name="salario_base" id="salario_base" type="number" class="validate" value="<?php echo $funcioanario['salario_base_func']?>">
-          <label for="salario_base">Salário Base</label>
+        <div class="input-field col s6">
+        <select name="nome_dpto">
+            <option value=""  selected><?php echo $nome_dpto['nome_dpto']?></option>
+            <?php
+
+            if(mysqli_num_rows($dpto) > 0):
+
+             while($nome_dpto = mysqli_fetch_array($dpto)):
+                ?>
+                <option id="nome_dpto" value="<?php echo $nome_dpto['nome_dpto']?>"><?php echo $nome_dpto['nome_dpto']?></option>
+                <?php
+              endwhile;
+            endif;
+            ?>
+         </select>
+         <label for="nome_dpto">Nome do Departamento</label>
         </div>
-        <div class="input-field col s6 hidden">
-          <input  name="nome_dpto" id="nome_dpto" type="text" class="validate" value="<?php echo $codigo_dpto['nome_dpto']?>">
-          <label for="nome_dpto">Departamento</label>
-        </div>
-        <div class="input-field col s6 hidden">
+
+        <div class="input-field col s6">
         <select name="dpto">
             <option value=""  selected><?php echo $codigo_dpto['codigo_dpto']?></option>
             <?php
-            $cod = "SELECT * FROM dpto";
-            $code = mysqli_query($connect, $cod);
 
-            if(mysqli_num_rows($code) > 0):
+           if(mysqli_num_rows($cod_dpto) > 0):
 
-             while($dept = mysqli_fetch_array($code)):
+             while($cod_dpto = mysqli_fetch_array($cod_dpto)):
                 ?>
-                <option id="dpto" value="<?php echo $dept['codigo_dpto']?>"><?php echo $dept['codigo_dpto']?></option>
+                <option id="dpto" value="<?php echo $cod_dpto['codigo_dpto']?>"><?php echo $cod_dpto['codigo_dpto']?></option>
                 <?php
-                endwhile;
+              endwhile;
             endif;
             ?>
          </select>
@@ -89,7 +103,7 @@ endif;
       </div>
       <div class="row">
         <button name="btn-editar" type="submit" class="btn green">Alterar</button>
-        <a href="funcionarios.php?id=<?php echo $codigo_dpto['codigo_dpto'];?>"><span class="btn blue">Listar funcionários</span></a>
+        <a href="alocar.php?numero_func=<?php echo $id;?>"><span class="btn blue">Alocar funcionário</span></a>
       </div>
     </form>
   </div>

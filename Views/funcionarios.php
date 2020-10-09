@@ -60,7 +60,7 @@ if(mysqli_num_rows($funcionarios) > 0):
           </p>
     <div class="secondary-content">
         <ul>
-          <a href="#!" class="btn-floating"><i class="material-icons">edit</i></a>
+          <a href="editar.php?numero_func=<?php echo $funcionario['numero_func'];?>" class="btn-floating orange"><i class="material-icons">edit</i></a>
           <a href="#modal<?php echo $funcionario['numero_func'];?>" class="btn-floating red modal-trigger"><i class="material-icons">delete</i></a>
 
         <!-- Modal Structure -->
@@ -97,8 +97,3 @@ endif;
 //Footer
 include_once '../INCLUDES/footer.php';
 ?>
-
- <div class="fixed-action-btn">
-    <a href="adicionar.php?dpto=<?php echo $id;?>" class="btn-floating btn-large red">
-    <i class="large material-icons">add_circle</i>
-</div>

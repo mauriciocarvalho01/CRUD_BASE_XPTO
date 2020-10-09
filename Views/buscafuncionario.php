@@ -36,7 +36,7 @@ if(mysqli_num_rows($funcionarios) > 0):
 <?php
 ?>
 <div class="row">
-    <div class="col s12 m6 push-m3">
+    <div class="col s8 m8 push-m2">
 <table class="centered responsive-table striped">
         <thead>
           <tr>
@@ -63,21 +63,11 @@ if(mysqli_num_rows($funcionarios) > 0):
             <td><?php echo $funcionario['situacao_func'] ?></td>
             <td><?php echo $funcionario['codigo_carg'] ?></td>
             <td><?php echo $funcionario['salario_base_func'] ?></td>
+            <td><a href="alocar.php?numero_func=<?php echo $funcionario['numero_func'];?>" class="btn-floating green"><i class="material-icons">arrow_forward</i></a></td>
             <td><a href="editar.php?numero_func=<?php echo $funcionario['numero_func'];?>" class="btn-floating orange"><i class="material-icons">edit</i></a></td>
             <td><a href="#modal<?php echo $funcionario['numero_func'];?>"  class="btn-floating red modal-trigger"><i class="material-icons">delete</i></a></td>
-            <?php 
-
-              $d = $funcionario['numero_func'];
-              $buscaDpto_funcionarios = "SELECT * FROM aloc WHERE numero_func = '$d'";
-
-              $dpto = mysqli_query($connect, $buscaDpto_funcionarios);
-              
-              
-              if($codigo_dpto = mysqli_fetch_array($dpto)):
-
-
-            ?>
-          <!-- Modal Structure -->
+            <td><a href="#modalhist<?php echo $funcionario['numero_func'];?>"  class="btn-floating grey modal-trigger"><i class="material-icons">help</i></a></td>
+          <!-- Modal Structure DELETE-->
           <div id="modal<?php echo $funcionario['numero_func'];?>" class="modal">
               <div class="modal-content">
               <h4>Opa!!</h4>
@@ -86,15 +76,65 @@ if(mysqli_num_rows($funcionarios) > 0):
               <div class="modal-footer">
               <form action="../PHP_ACTION/delete.php?" method="POST">
                   <input type="hidden" name="func" value="<?php echo $funcionario['numero_func'] ?>">
-                  <input type="hidden" name="id" value="<?php echo $d;?>">
                   <button type="submit" name="btn-deletar" class="btn red">Excluir<button>
                   <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancelar</a>
               </form>
               </div>
           </div>
+
+          <?php 
+
+          $func = $funcionario['numero_func'];
+          $buscaHist = "SELECT * FROM hist WHERE numero_func = '$func'";
+
+          $historicos = mysqli_query($connect, $buscaHist);
+
+          $shist = " ";
+
+          ?>
+
+          <!-- Modal Structure HIST-->
+          <div id="modalhist<?php echo $funcionario['numero_func'];?>" class="modal">
+              <div class="modal-content">
+              <h4>Histórico do funcionário</h4>
+              <p>Nome: <?php echo $funcionario['nome_func'];?></p>
+              </div>
+
+              <?php 
+                
+                if(mysqli_num_rows($historicos) > 0):
+                while($hist_func = mysqli_fetch_array($historicos)):
+              ?>
+              <div calss="row">
+                <ul class="collection">
+                   <li class="collection-item">Número do Histórico: <?php echo $hist_func['numero_hist'];?></li>
+                    <li class="collection-item">Data: <?php echo $hist_func['data_ini_hist'];?></li>
+                   <li class="collection-item">Cargo: <?php echo $hist_func['codigo_carg'];?></li>
+                  <li class="collection-item">Salário base: <?php echo $hist_func['salario_base_func'];?></li>
+               </ul>
+              </div>
+               <?php
+                  endwhile;
+
+                  else:
+                  ?>
+                  <div calss="row">
+                  <ul class="collection">
+                   <li class="collection-item">Sem histórico</li>
+                  </ul>
+                 </div>
+              <?php
+                  endif;
+               ?>
+
+              <div class="modal-footer">
+              <form action="../PHP_ACTION/delete.php?" method="POST">
+                  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Sair</a>
+              </form>
+            </div>
+          </div>
           </tr>
         <?php
-        endif;
             endwhile;
         ?>
         </tbody>
@@ -112,3 +152,9 @@ endif;
 //Footer
 include_once '../INCLUDES/footer.php';
 ?>
+
+
+ <div class="fixed-action-btn">
+    <a href="adicionar.php?>" class="btn-floating btn-large green">
+    <i class="large material-icons">person_add</i>
+</div>

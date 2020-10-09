@@ -7,7 +7,6 @@ require_once 'db_connect.php';
 
 //Criar funcionário
 if(isset($_POST['btn-cadastrar'])):
-	$dpto = mysqli_escape_string($connect,$_POST['dpto']);
 	$nome = mysqli_escape_string($connect,$_POST['nome']);
 	$cpf = mysqli_escape_string($connect,$_POST['cpf']);
 	$data_admin = mysqli_escape_string($connect,$_POST['data_admin']);
@@ -24,20 +23,33 @@ if(isset($_POST['btn-cadastrar'])):
 		VALUES('$null','$nome', '$cpf', '$data_admin', '$null', '$situacao_func', '$codigo_carg', '$salario_base')";
 
 
-if(mysqli_query($connect, $create_func)):
+	$testaCpf = "SELECT * FROM func WHERE cpf_func = '$cpf'";
+	
+	$result = mysqli_query($connect, $testaCpf);
 
-
-	$_SESSION['cadastro'] = "Funcionário Cadastrado com Sucesso!";
-	header("Location:../Views/funcionarios.php?id=$dpto");
-else:
-	$_SESSION['cadastro'] = "Erro ao Cadastrar!";
-	header("Location:../Views/funcionarios.php?id=$dpto");
+	if(mysqli_num_rows($result) > 0):
+			$_SESSION['cadastro'] = "Funcionário já cadastrado!";
+			header("Location:../Views/buscafuncionario.php");
+			else:
+				if(mysqli_query($connect, $create_func)):
+					$_SESSION['cadastro'] = "Funcionário Cadastrado com Sucesso!";
+					header("Location:../Views/buscafuncionario.php");
+				else:
+					$_SESSION['cadastro'] = "Erro ao Cadastrar!";
+					header("Location:../Views/buscafuncionario");
+				endif;
+	endif;
 endif;
-endif;
 
 
 
-
+	/*if(mysqli_query($connect, $create_func)):
+				$_SESSION['cadastro'] = "Funcionário Cadastrado com Sucesso!";
+				header("Location:../Views/buscafuncionario.php");
+			else:
+				$_SESSION['cadastro'] = "Erro ao Cadastrar!";
+				header("Location:../Views/buscafuncionario");
+	endif;*/
 
 /*
 

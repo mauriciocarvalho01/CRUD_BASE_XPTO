@@ -45,6 +45,13 @@ if(isset($_SESSION['excluido'])):
 </script>
 <?php
 endif;
+if(isset($_SESSION['excluidoaloc'])):
+?>
+<script>
+    window.onload = ()=> M.toast({html: '<?php echo $_SESSION['excluidoaloc']; ?>'})
+</script>
+<?php
+endif;
 
 
 //Limprar a sessão

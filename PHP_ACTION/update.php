@@ -31,19 +31,17 @@ if(isset($_POST['btn-editar'])):
 			
 	endif;
 
-
+	$insere_aloc = "INSERT INTO aloc (codigo_dpto,numero_func) VALUES ('$dpto','$numero_func')";
+		if(mysqli_query($connect, $insere_aloc)):
+			$_SESSION['altera_aloc'] = 'Alocação feita com sucesso!';
+			else:
+			$_SESSION['altera_aloc'] = mysqli_error( $connect );
+		endif;
 
 	$altera_dpto = "UPDATE aloc SET codigo_dpto = '$dpto', numero_func = '$numero_func' WHERE numero_func = '$numero_func'";
 		if(mysqli_query($connect, $altera_dpto)):
 			$_SESSION['altera_aloc'] = 'Alocação alterada com sucesso!';
 			else:
-				$alocar_func = "INSERT INTO aloc(codigo_dpto,numero_func) VALUES('$dpto','$numero_func')";
-					if(mysqli_query($connect, $alocar_func)):
-						$_SESSION['aloc'] = 'Alocado com sucesso!';
-					else:
-					$erro = mysql_error();
-					 	$_SESSION['aloc'] = mysqli_error( $connect );
-					endif;
-			$_SESSION['altera_aloc'] = 'Alocação alterada sem sucesso!';
-		endif;	
+			$_SESSION['altera_aloc'] = mysqli_error( $connect );
+		endif;
 endif;
