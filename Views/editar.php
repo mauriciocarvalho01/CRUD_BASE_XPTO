@@ -65,6 +65,10 @@ endif;
           <input name="situacao_func" id="situacao_func" type="text" class="validate" value="<?php echo $funcioanario['situacao_func']?>">
           <label for="situacao_func">Situação do funcionário</label>
         </div>
+         <div class="input-field col s6">
+          <input name="salario_base_func" id="salario_base_func" type="text" class="validate" value="<?php echo $funcioanario['salario_base_func']?>">
+          <label for="salario_base_func">Salário</label>
+        </div>
         <div class="input-field col s6">
         <select name="nome_dpto">
             <option value=""  selected><?php echo $nome_dpto['nome_dpto']?></option>
